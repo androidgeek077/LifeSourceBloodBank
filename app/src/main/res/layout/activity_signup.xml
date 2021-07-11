@@ -5,7 +5,8 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/phoneLayout"
+
+        android:id="@+id/ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -25,10 +26,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/baloo_bhai"
-            android:text="Here Is Your First Step With Us"
+            android:text="Let's Start with Registration"
             android:textSize="30sp">
 
         </TextView>
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Name">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/NameET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -57,6 +71,27 @@
                 android:inputType="textPassword" />
 
         </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Phone">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/PhoneET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <Spinner
+            android:id="@+id/bloodTypeSpnr"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/outliner"
+            android:entries="@array/blood_type" />
+
 
         <TextView
             android:id="@+id/forgetPasswordTV"
@@ -69,7 +104,7 @@
 
 
         <Button
-            android:id="@+id/loginBtn"
+            android:id="@+id/signupBtn"
             style="@style/TextAppearance.AppCompat.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -77,7 +112,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/green_color_round"
-            android:text="login"
+            android:text="@string/signup"
             android:textColor="#fff"
             android:textSize="20sp" />
 
@@ -95,19 +130,22 @@
             android:orientation="horizontal">
 
             <TextView
+                android:gravity="center"
+                android:layout_margin="5dp"
                 android:id="@+id/goToSignup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginLeft="5dp"
-                android:text="@string/signup_here"
+                android:text="Already have a account?"
                 android:textColor="#535355" />
 
             <TextView
-                android:id="@+id/AccountTV"
+                android:id="@+id/gotoLoginTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/dont_you_have_a_account_yet"
+                android:layout_gravity="center"
+                android:text="Login Here"
                 android:textStyle="bold" />
 
 

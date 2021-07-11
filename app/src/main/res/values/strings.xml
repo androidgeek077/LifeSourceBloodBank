@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">LifeSourceBloodBank</string>
+    <string name="signup_here">Don\'t you have a account yet?  </string>
+    <string name="dont_you_have_a_account_yet">Signup Here</string>
+    <string name="signup">Signup</string>
+    <string-array name="user_type">
+        <item>Donor</item>
+        <item>Seeker</item>
+        <item>Admin</item>
+    </string-array>
+    <string-array name="blood_type">
+        <item>A+</item>
+        <item>A-</item>
+        <item>B+</item>
+        <item>B-</item>
+        <item>O+</item>
+        <item>O-</item>
+    </string-array>
 </resources>

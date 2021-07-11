@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "105018217562",
+    "project_id": "lifesourcebloodbank",
+    "storage_bucket": "lifesourcebloodbank.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:105018217562:android:edfd8d4d0b457ec97e7463",
+        "android_client_info": {
+          "package_name": "app.techsol.lifesourcebloodbank"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "105018217562-feeci2a5gksrhq3am8igbp1aqtl5mlic.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzguQlWVUdLb-wTjG4UQWhOKRHFPjQ2AM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "105018217562-feeci2a5gksrhq3am8igbp1aqtl5mlic.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
