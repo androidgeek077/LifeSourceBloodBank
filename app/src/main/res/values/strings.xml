@@ -16,4 +16,5 @@
         <item>O+</item>
         <item>O-</item>
     </string-array>
+    <string name="title_activity_maps">Map</string>
 </resources>

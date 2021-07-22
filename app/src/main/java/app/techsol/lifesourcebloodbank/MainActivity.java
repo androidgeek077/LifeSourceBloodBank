@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                                 IdStr=auth.getCurrentUser().getUid();
 //                                getUserData(IdStr);
                                 mProgressBar.setVisibility(View.GONE);
-//                                startActivity(new Intent(getBaseContext(), BottomNavActivity.class));
+                                startActivity(new Intent(getBaseContext(), DashboardActivity.class));
                             }
                         }
                     }).addOnFailureListener(new OnFailureListener() {

@@ -13,6 +13,9 @@ public class UserModel {
         this.userlong = userlong;
     }
 
+    public UserModel() {
+    }
+
     public String getUserid() {
         return userid;
     }
