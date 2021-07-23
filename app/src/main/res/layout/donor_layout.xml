@@ -13,7 +13,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/baloo_bhai"
-            android:text="Mechanic Distance is:"
+            android:text="Donor Distance is:"
             android:textColor="#000"
             android:textSize="18sp" />
 
@@ -35,7 +35,7 @@
 
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Do you Want to Book this Machenic?"
+        android:text="Do you Want to Ask for Donation?"
         android:textColor="#000"
         android:textSize="18sp" />
 
@@ -44,13 +44,14 @@
         android:layout_height="wrap_content">
 
         <Button
+            android:layout_marginRight="5dp"
             android:id="@+id/btnBook"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:layout_weight="1"
             android:backgroundTint="#000"
-            android:text="Book"
+            android:text="Yes"
             android:textColor="#FFFFFFFF" />
 
         <Button
@@ -60,7 +61,7 @@
             android:layout_marginTop="15dp"
             android:layout_weight="1"
             android:backgroundTint="#000"
-            android:text="Cancel"
+            android:text="No"
             android:textColor="#FFFFFFFF" />
 
     </LinearLayout>

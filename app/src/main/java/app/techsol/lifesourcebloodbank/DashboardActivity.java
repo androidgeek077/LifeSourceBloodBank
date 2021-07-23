@@ -9,24 +9,49 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class DashboardActivity extends AppCompatActivity {
     TextView donorTV;
     TextView TrackDonationTV;
     int images[] = {R.drawable.image1, R.drawable.image1, R.drawable.image1, R.drawable.image1, R.drawable.image1};
     private FirebaseAuth auth;
+    CardView responsesCV;
+
+
+    DatabaseReference UserRef;
+    private String userPhoneNo = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         auth=FirebaseAuth.getInstance();
+        UserRef = FirebaseDatabase.getInstance().getReference("Users");
         TrackDonationTV=findViewById(R.id.TrackDonationTV);
+        responsesCV=findViewById(R.id.responsesCV);
+        getuserPhoneNo();
+        responsesCV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(DashboardActivity.this, MyDonationsActivity.class);
+                intent.putExtra("phoneno",userPhoneNo );
+                startActivity(intent);
+            }
+        });
         donorTV=findViewById(R.id.donorTV);
         donorTV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,4 +109,23 @@ public class DashboardActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    private String getuserPhoneNo() {
+        UserRef.child(auth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    userPhoneNo = dataSnapshot.child("phoneno").getValue().toString();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
+        });
+        return  userPhoneNo;
+    }
+
 }

@@ -1,48 +1,48 @@
 package app.techsol.lifesourcebloodbank;
 
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+        import android.content.Intent;
+        import android.graphics.Color;
+        import android.graphics.PorterDuff;
+        import android.os.Bundle;
+        import android.util.DisplayMetrics;
+        import android.view.LayoutInflater;
+        import android.view.View;
+        import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+        import android.widget.ImageView;
+        import android.widget.LinearLayout;
+        import android.widget.TextView;
+        import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+        import androidx.annotation.NonNull;
+        import androidx.appcompat.app.AppCompatActivity;
+        import androidx.cardview.widget.CardView;
+        import androidx.recyclerview.widget.LinearLayoutManager;
+        import androidx.recyclerview.widget.RecyclerView;
 
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
+        import com.firebase.ui.database.FirebaseRecyclerAdapter;
+        import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.auth.FirebaseAuth;
+        import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+        import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
 import app.techsol.lifesourcebloodbank.Models.BookingModel;
 
-public class DonationHistoryActivity extends AppCompatActivity {
+public class MyDonationsActivity extends AppCompatActivity {
 
     DatabaseReference CustomerReference;
     //    CustomerProfileAdapter mProductAdapter;
@@ -50,17 +50,23 @@ public class DonationHistoryActivity extends AppCompatActivity {
     FirebaseAuth auth;
     FrameLayout view;
     private String userid;
+
+    DatabaseReference UserRef;
+    private String userPhoneNo;
+
     private Dialog dialog;
     private Button btnCancel;
     private EditText storyET;
     Button btnAddStory;
     private TextView donorStoryTV, seekerStoryTV;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_donation_history);
+        setContentView(R.layout.activity_my_donations);
+        userPhoneNo=getIntent().getStringExtra("phoneno");
+        Toast.makeText(this, userPhoneNo, Toast.LENGTH_SHORT).show();
+        UserRef = FirebaseDatabase.getInstance().getReference("Users");
         auth = FirebaseAuth.getInstance();
         userid=auth.getCurrentUser().getUid();
         CustomerReference = FirebaseDatabase.getInstance().getReference().child("Booking");
@@ -70,7 +76,7 @@ public class DonationHistoryActivity extends AppCompatActivity {
         mCustomerRecycVw.setLayoutManager(mLayoutManager);
 
         FirebaseRecyclerOptions<BookingModel> options = new FirebaseRecyclerOptions.Builder<BookingModel>()
-                .setQuery(CustomerReference.orderByChild("seekerid").equalTo(userid), BookingModel.class)
+                .setQuery(CustomerReference.orderByChild("donorid").equalTo(userPhoneNo), BookingModel.class)
                 .build();
 
         final FirebaseRecyclerAdapter<BookingModel, CustomersViewHolder> adapter = new FirebaseRecyclerAdapter<BookingModel, CustomersViewHolder>(options) {
@@ -83,6 +89,7 @@ public class DonationHistoryActivity extends AppCompatActivity {
                 //if you need three fix imageview in width
 
                 holder.userName.setText(model.getDonorname());
+
                 holder.DateTV.setText(model.getDonationdate());
                 holder.donorPhone.setText(model.getDonorid());
                 holder.blodTypeTV.setText(model.getBloodtype());
@@ -110,7 +117,7 @@ public class DonationHistoryActivity extends AppCompatActivity {
                     public void onClick(View v) {
 
                         if (model.getSeekerid().equals(auth.getCurrentUser().getUid())) {
-                            Toast.makeText(DonationHistoryActivity.this, "You Can't update Status", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MyDonationsActivity.this, "You Can't update Status", Toast.LENGTH_SHORT).show();
                         } else if (model.getDonationstatus().equals("Requested")) {
 
                             new AlertDialog.Builder(v.getContext())
@@ -156,12 +163,13 @@ public class DonationHistoryActivity extends AppCompatActivity {
 
 
                         } else if (model.getDonationstatus().equals("Accepted")){
-                            Toast.makeText(DonationHistoryActivity.this, "Offer Already Accepted", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MyDonationsActivity.this, "Offer Already Accepted", Toast.LENGTH_SHORT).show();
                         } else  {
-                            Toast.makeText(DonationHistoryActivity.this, "Offer Already Declined", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MyDonationsActivity.this, "Offer Already Declined", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+
 
 
                 holder.viewStoryIV.setOnClickListener(new View.OnClickListener() {
@@ -193,28 +201,34 @@ public class DonationHistoryActivity extends AppCompatActivity {
     public static class CustomersViewHolder extends RecyclerView.ViewHolder {
 
 
+        ImageView postImage, mDelCustomerBtn;
         TextView userName;
         TextView DateTV;
+        LinearLayout mItemCountLin;
         TextView donorPhone, blodTypeTV, donationReqTV, AddStoryTV;
+        CardView cardView;
 
 
+        ImageView mPlusBtn, mMinusBtn;
         ImageView viewStoryIV;
 
         public CustomersViewHolder(@NonNull View itemView) {
             super(itemView);
-            userName =  itemView.findViewById(R.id.userName);
-            DateTV =  itemView.findViewById(R.id.DateTV);
+
+            userName = (TextView) itemView.findViewById(R.id.userName);
+            DateTV = (TextView) itemView.findViewById(R.id.DateTV);
             donorPhone = itemView.findViewById(R.id.donorPhone);
             blodTypeTV = itemView.findViewById(R.id.blodTypeTV);
             donationReqTV = itemView.findViewById(R.id.donationReqTV);
             AddStoryTV = itemView.findViewById(R.id.AddStoryTV);
-            viewStoryIV=itemView.findViewById(R.id.viewStoryIV);
+            viewStoryIV = itemView.findViewById(R.id.viewStoryIV);
+
+
         }
 
     }
-
     private void openDialog(String id) {
-        dialog = new Dialog(DonationHistoryActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+        dialog = new Dialog(MyDonationsActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
         dialog.setContentView(R.layout.story_dialogbox_layout);
         dialog.getWindow().getAttributes().windowAnimations = R.style.Theme_AppCompat_DayNight_Dialog_Alert;
         dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL, WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
@@ -226,10 +240,10 @@ public class DonationHistoryActivity extends AppCompatActivity {
         btnAddStory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CustomerReference.child(id).child("seekerstory").setValue(storyET.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                CustomerReference.child(id).child("donorstory").setValue(storyET.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull @NotNull Task<Void> task) {
-                        Toast.makeText(DonationHistoryActivity.this, "Story added Successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MyDonationsActivity.this, "Story added Successfully", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
                     }
                 });
@@ -246,7 +260,7 @@ public class DonationHistoryActivity extends AppCompatActivity {
         dialog.show();
     }
     private void viewStoryDialog(String seekerStory, String donorStory) {
-        dialog = new Dialog(DonationHistoryActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+        dialog = new Dialog(MyDonationsActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
         dialog.setContentView(R.layout.view_stoty_item_layout);
         dialog.getWindow().getAttributes().windowAnimations = R.style.Theme_AppCompat_DayNight_Dialog_Alert;
         dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL, WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);

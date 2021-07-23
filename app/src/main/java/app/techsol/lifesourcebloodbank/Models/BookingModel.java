@@ -1,7 +1,44 @@
 package app.techsol.lifesourcebloodbank.Models;
 
 public class BookingModel {
-    String id,seekerid, donorid, donorname, bloodtype, donationdate, donationstatus;
+    String id;
+    String seekerid;
+    String donorid;
+    String donorname;
+    String bloodtype;
+    String donationdate;
+    String donationstatus;
+    String donorstory;
+
+    public String getDonorstory() {
+        return donorstory;
+    }
+
+    public void setDonorstory(String donorstory) {
+        this.donorstory = donorstory;
+    }
+
+    public String getSeekerstory() {
+        return seekerstory;
+    }
+
+    public void setSeekerstory(String seekerstory) {
+        this.seekerstory = seekerstory;
+    }
+
+    public BookingModel(String id, String seekerid, String donorid, String donorname, String bloodtype, String donationdate, String donationstatus, String donorstory, String seekerstory) {
+        this.id = id;
+        this.seekerid = seekerid;
+        this.donorid = donorid;
+        this.donorname = donorname;
+        this.bloodtype = bloodtype;
+        this.donationdate = donationdate;
+        this.donationstatus = donationstatus;
+        this.donorstory = donorstory;
+        this.seekerstory = seekerstory;
+    }
+
+    String seekerstory;
 
     public String getId() {
         return id;

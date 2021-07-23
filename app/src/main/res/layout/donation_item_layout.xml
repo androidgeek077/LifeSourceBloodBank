@@ -88,13 +88,25 @@
                         android:gravity="center"
                         android:layout_alignParentEnd="true"
                         android:layout_gravity="end"
+                        android:id="@+id/AddStoryTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:drawableLeft="@drawable/ic_plus"
+                        android:drawablePadding="10dp"
+                        android:text="Add Story"
+                        android:layout_alignParentRight="true" />
+                    <TextView
+                        android:textColor="#000"
+                        android:paddingRight="10dp"
+                        android:gravity="center"
+                        android:layout_centerInParent="true"
                         android:id="@+id/blodTypeTV"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:drawableLeft="@drawable/ic_blood"
                         android:drawablePadding="10dp"
                         android:text="Name"
-                        android:layout_alignParentRight="true" />
+                        />
                 </RelativeLayout>
 
             </androidx.cardview.widget.CardView>
@@ -105,14 +117,29 @@
                 app:cardCornerRadius="3dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
+                <LinearLayout
+                    android:weightSum="1"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
                 <TextView
                     android:id="@+id/donationReqTV"
                     android:gravity="center"
                     android:textStyle="bold"
                     android:textSize="16sp"
                     android:text="Requested"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_weight=".9"
                     android:layout_height="35dp" />
+
+                    <ImageView
+                        android:id="@+id/viewStoryIV"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight=".1"
+                        android:src="@drawable/ic_visibility" />
+                </LinearLayout>
             </androidx.cardview.widget.CardView>
 
         </LinearLayout>
