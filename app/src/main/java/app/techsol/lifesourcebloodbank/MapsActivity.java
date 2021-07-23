@@ -2,13 +2,16 @@ package app.techsol.lifesourcebloodbank;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -86,6 +89,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private TextView distanceTV;
     private Button btnBook;
     private Button btnCancel;
+    private ImageView launchSmsIV, launchPhoneIV;
 
 
     @Override
@@ -235,7 +239,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private void AddMarkerToMap(Double Lat, Double Lng, String name, String type, String phoneno) {
         mechaniclocation = new LatLng(Lat, Lng);
-        googleMap.addMarker(new MarkerOptions().position(mechaniclocation).title(name+", Blood Type: "+type).snippet(phoneno));
+        googleMap.addMarker(new MarkerOptions().position(mechaniclocation).title(name+","+type).snippet(phoneno));
         googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(@NonNull @NotNull Marker marker) {
@@ -258,7 +262,31 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         dialog.setCancelable(true);
         distanceTV = dialog.findViewById(R.id.distanceTV);
         distanceTV.setText(distance+" KMs");
+
+        launchPhoneIV=dialog.findViewById(R.id.launchPhoneIV);
+        launchPhoneIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + donorId));
+                startActivity(intent);
+
+            }
+        });
+
+        launchSmsIV=dialog.findViewById(R.id.launchSmsIV);
+        launchSmsIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sendIntent = new Intent(Intent.ACTION_VIEW);
+                sendIntent.setData(Uri.parse("sms:" + donorId));
+                sendIntent.putExtra("sms_body", "Can you please donate your blood Someone needs it urgently");
+                startActivity(sendIntent);
+
+            }
+        });
+
         btnBook = dialog.findViewById(R.id.btnBook);
+
         btnBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

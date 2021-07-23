@@ -38,8 +38,7 @@
                     android:drawableLeft="@drawable/ic_icon"
                     android:drawablePadding="20dp"
                     android:padding="10dp"
-                    android:text="This brand new mobile application is specifically designed to offer an effective logistics solution that works to:"
-                    android:textSize="16sp"
+                    android:text="Donors are strongly urged to give now to help ensure lifesaving blood products are available for patients"    android:textSize="16sp"
                     android:textStyle="italic">
 
                 </TextView>
@@ -63,7 +62,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:drawableLeft="@drawable/ic_check"
+                        android:drawableLeft="@drawable/ic_magnifying_glass"
                         android:drawablePadding="10dp"
                         android:gravity="center"
                         android:text="Search for a Doner"
@@ -91,10 +90,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:drawableLeft="@drawable/ic_check"
+                        android:drawableLeft="@drawable/ic_question"
                         android:drawablePadding="10dp"
                         android:gravity="center"
-                        android:text="Track your Request"
+                        android:text="My Requests"
                         android:textSize="16sp">
 
                     </TextView>
@@ -119,12 +118,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:drawableLeft="@drawable/ic_check"
+                        android:drawableLeft="@drawable/ic_average"
                         android:drawablePadding="10dp"
                         android:gravity="center"
                         android:text="My Responses"
                         android:textSize="16sp">
-
                     </TextView>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -171,8 +169,7 @@
                     android:padding="10dp"
                     android:textSize="16sp"
                     android:textStyle="italic"
-                    android:text="So, are you ready to help become a part of the solution? Bear with us we are working on perfecting the backend of the app"
-                    >
+                    android:text="Your donation is needed now to prevent delays in patient care. Help overcome the severe blood shortage!"    >
 
                 </com.codesgood.views.JustifiedTextView>
             </androidx.cardview.widget.CardView>

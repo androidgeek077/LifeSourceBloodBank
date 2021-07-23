@@ -19,7 +19,6 @@
 
         <TextView
             android:id="@+id/distanceTV"
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -28,6 +27,20 @@
             android:text="22 KM"
             android:textColor="#000"
             android:textSize="18sp" />
+        <ImageView
+            android:id="@+id/launchSmsIV"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/ic_sms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/launchPhoneIV"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/ic_phone_call"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <TextView

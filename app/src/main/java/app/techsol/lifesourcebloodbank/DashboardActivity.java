@@ -9,7 +9,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
@@ -26,7 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 public class DashboardActivity extends AppCompatActivity {
     TextView donorTV;
     TextView TrackDonationTV;
-    int images[] = {R.drawable.image1, R.drawable.image1, R.drawable.image1, R.drawable.image1, R.drawable.image1};
+    int images[] = {R.drawable.image1, R.drawable.image2, R.drawable.image3, R.drawable.image4};
     private FirebaseAuth auth;
     CardView responsesCV;
 

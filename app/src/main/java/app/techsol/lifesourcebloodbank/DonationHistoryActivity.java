@@ -45,7 +45,6 @@ import app.techsol.lifesourcebloodbank.Models.BookingModel;
 public class DonationHistoryActivity extends AppCompatActivity {
 
     DatabaseReference CustomerReference;
-    //    CustomerProfileAdapter mProductAdapter;
     RecyclerView mCustomerRecycVw;
     FirebaseAuth auth;
     FrameLayout view;
@@ -262,7 +261,6 @@ public class DonationHistoryActivity extends AppCompatActivity {
         donorStoryTV.setText(donorStory);
         seekerStoryTV = dialog.findViewById(R.id.seekerStoryTV);
         seekerStoryTV.setText(seekerStory);
-
         dialog.show();
     }
 
