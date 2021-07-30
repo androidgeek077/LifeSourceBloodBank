@@ -14,6 +14,7 @@ import android.widget.ViewFlipper;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.NotificationCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -22,7 +23,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class DashboardActivity extends AppCompatActivity {
+    private static final int CHANNEL_ID = 1;
     TextView donorTV;
     TextView TrackDonationTV;
     int images[] = {R.drawable.image1, R.drawable.image2, R.drawable.image3, R.drawable.image4};
@@ -43,6 +49,7 @@ public class DashboardActivity extends AppCompatActivity {
         TrackDonationTV=findViewById(R.id.TrackDonationTV);
         responsesCV=findViewById(R.id.responsesCV);
         getuserPhoneNo();
+        getNotification();
         responsesCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,6 +122,35 @@ public class DashboardActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     userPhoneNo = dataSnapshot.child("phoneno").getValue().toString();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
+        });
+        return  userPhoneNo;
+    }
+
+    private String getNotification() {
+        UserRef.orderByChild("donorid").equalTo(getuserPhoneNo()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+                    for (DataSnapshot child: dataSnapshot.getChildren()){
+                        if (child.child("donationdate").equals(currentDate)){
+                            NotificationCompat.Builder builder = new NotificationCompat.Builder(DashboardActivity.this)
+                                    .setSmallIcon(R.drawable.ic_icon)
+                                    .setContentTitle("textTitle")
+                                    .setContentText("textContent")
+                                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                            builder.build();
+                        }
+                    }
+//                    userPhoneNo = dataSnapshot.child("phoneno").getValue().toString();
                 }
             }
 

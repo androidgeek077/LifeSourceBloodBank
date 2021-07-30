@@ -1,21 +1,9 @@
 package app.techsol.lifesourcebloodbank.Models;
 
 public class UserModel {
-    String userid, name, email, phoneno, bloodtype, userlat, userlong;
+    String userid, name, email, phoneno, bloodtype, userlat, userlong; //No Capital Letter
 
-    public UserModel(String userid, String name, String email, String phoneno, String bloodtype, String userlat, String userlong) {
-        this.userid = userid;
-        this.name = name;
-        this.email = email;
-        this.phoneno = phoneno;
-        this.bloodtype = bloodtype;
-        this.userlat = userlat;
-        this.userlong = userlong;
-    }
-
-    public UserModel() {
-    }
-
+    //alt+insert
     public String getUserid() {
         return userid;
     }
@@ -69,6 +57,19 @@ public class UserModel {
     }
 
     public void setUserlong(String userlong) {
+        this.userlong = userlong;
+    }
+
+    public UserModel() {
+    }
+
+    public UserModel(String userid, String name, String email, String phoneno, String bloodtype, String userlat, String userlong) {
+        this.userid = userid;
+        this.name = name;
+        this.email = email;
+        this.phoneno = phoneno;
+        this.bloodtype = bloodtype;
+        this.userlat = userlat;
         this.userlong = userlong;
     }
 }

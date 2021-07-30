@@ -27,7 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
-    TextView goToSignup, forgetPasswordTV;
+    TextView goToSignup;
     TextInputEditText emailET, PasswordET;
     String emailStr, passwordStr;
     FirebaseAuth auth;
@@ -35,24 +35,7 @@ public class MainActivity extends AppCompatActivity {
     Button loginBtn;
     private ProgressBar mProgressBar;
     private String IdStr;
-    PreferenceManager manager;
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        auth = FirebaseAuth.getInstance();
-        if (auth.getUid() != null) {
-//            Intent intent = new Intent(getBaseContext(), BottomNavActivity.class);
-//            startActivity(intent);
-//            finish();
-        }
-    }
-
-    // Configure Google Sign In
-
-
-    // Check for existing Google Sign In account, if the user is already signed in
-// the GoogleSignInAccount will be non-null.
 
 
     @Override
@@ -61,25 +44,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
         auth = FirebaseAuth.getInstance();
-        forgetPasswordTV = findViewById(R.id.forgetPasswordTV);
-//        manager=new PreferenceManager(getBaseContext());
-
-
-//        forgetPasswordTV.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                startActivity(new Intent(getBaseContext(), ForgetPasswordActivity.class));
-//            }
-//        });
-
 
         auth = FirebaseAuth.getInstance();
-
-
         emailET = findViewById(R.id.EmailET);
-
         PasswordET = findViewById(R.id.PasswordET);
-
         mProgressBar = findViewById(R.id.mProgressBar);
         loginBtn = findViewById(R.id.loginBtn);
 
@@ -119,44 +87,13 @@ public class MainActivity extends AppCompatActivity {
         goToSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getBaseContext(), SignupActivity.class));
+                startActivity(new Intent(MainActivity.this, SignupActivity.class));
             }
         });
 
 
     }
 
-    DatabaseReference ref;
-    String userId,nameStr, myemailStr, profileImgUrl, userLat, userLong;
-//    void getUserData(String UserId) {
-//        ref= FirebaseDatabase.getInstance().getReference("User").child(UserId);
-//        ref.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                if (dataSnapshot.exists()){
-//                    nameStr=dataSnapshot.child("username").getValue().toString();
-//                    manager.setUserName(nameStr);
-//                    Toast.makeText(MainActivity.this, manager.getUserName(), Toast.LENGTH_SHORT).show();
-//
-//                    userId = dataSnapshot.child("userId").getValue().toString();
-//                    manager.setUserId(userId);
-//                    myemailStr=dataSnapshot.child("emailId").getValue().toString();
-//                    manager.setUserEmail(myemailStr);
-//                    profileImgUrl=dataSnapshot.child("profileImgUrl").getValue().toString();
-//                    manager.setUserProfileImgUrl(profileImgUrl);
-//                    userLat = dataSnapshot.child("userLat").getValue().toString();
-//                    manager.setUserLat(userLat);
-//                    userLong = dataSnapshot.child("userLong").getValue().toString();
-//                    manager.setUserLong(userLong);
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-//
-//    }
+
 
 }

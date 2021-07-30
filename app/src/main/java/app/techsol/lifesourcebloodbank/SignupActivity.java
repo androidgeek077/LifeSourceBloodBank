@@ -104,7 +104,6 @@ public class SignupActivity extends AppCompatActivity implements LocationListene
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
                                             mProgressBar.setVisibility(View.GONE);
-
                                             final Snackbar snackbar = Snackbar.make(view, "User Added Successfully", Snackbar.LENGTH_INDEFINITE);
                                             snackbar.setAction("Ok", new View.OnClickListener() {
                                                 @Override
@@ -120,7 +119,6 @@ public class SignupActivity extends AppCompatActivity implements LocationListene
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
                                         mProgressBar.setVisibility(View.GONE);
-
                                         Toast.makeText(SignupActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 });

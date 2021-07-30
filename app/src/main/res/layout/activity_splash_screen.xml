@@ -6,8 +6,8 @@
     android:gravity="center"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <ImageView
-        android:layout_width="250dp"
-        android:layout_height="250dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:id="@+id/image"
         android:src="@drawable/logo"
         android:scaleType="fitXY"
@@ -19,7 +19,7 @@
         android:layout_height="200dp"
         android:id="@+id/particleView"
         app:pv_background_color="#fff"
-        app:pv_host_text="Bank"
+        app:pv_host_text="Blood Bank"
         app:pv_host_text_size="24sp"
         app:pv_particle_text="LIFE SOURCE"
         app:pv_particle_text_size="30sp"

@@ -25,7 +25,6 @@ public class SplashScreenActivity extends AppCompatActivity {
         auth=FirebaseAuth.getInstance();
         particleView=(ParticleView)findViewById(R.id.particleView);
         image=(ImageView)findViewById(R.id.image);
-        final Boolean session=getSharedPreferences("PREFERENCE",MODE_PRIVATE).getBoolean("session",false);
 
         YoYo.with(Techniques.BounceIn).duration(8000).withListener(new Animator.AnimatorListener() {
             @Override
