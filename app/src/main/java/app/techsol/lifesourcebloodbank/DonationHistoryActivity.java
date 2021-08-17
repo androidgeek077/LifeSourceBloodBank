@@ -60,6 +60,8 @@ public class DonationHistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donation_history);
+        View rootview = findViewById(android.R.id.content);
+
         auth = FirebaseAuth.getInstance();
         userid=auth.getCurrentUser().getUid();
         CustomerReference = FirebaseDatabase.getInstance().getReference().child("Booking");
