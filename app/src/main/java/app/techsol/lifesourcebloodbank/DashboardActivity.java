@@ -118,11 +118,11 @@ public class DashboardActivity extends AppCompatActivity {
         textCartItemCount = actionView.findViewById(R.id.cart_badge);
         getNotification();
 
-
         actionView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onOptionsItemSelected(menuItem);
+                startActivity(new Intent(getBaseContext(), ReminderActivity.class));
             }
         });
         return true;
@@ -174,7 +174,6 @@ public class DashboardActivity extends AppCompatActivity {
                         BookingModel model=mychild.getValue(BookingModel.class);
                         if (model.getDonationdate().equals(currentDate)){
                             badgeitems=badgeitems+1;
-                            Toast.makeText(DashboardActivity.this, ""+badgeitems, Toast.LENGTH_SHORT).show();
                         }
                     }
                     setupBadge(badgeitems);
