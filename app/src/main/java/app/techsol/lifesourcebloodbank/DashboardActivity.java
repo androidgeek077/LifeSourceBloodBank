@@ -9,12 +9,14 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.NotificationCompat;
+import androidx.core.view.MenuItemCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -27,6 +29,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import app.techsol.lifesourcebloodbank.Models.BookingModel;
+
 public class DashboardActivity extends AppCompatActivity {
     private static final int CHANNEL_ID = 1;
     TextView donorTV;
@@ -34,10 +38,15 @@ public class DashboardActivity extends AppCompatActivity {
     int images[] = {R.drawable.image1, R.drawable.image2, R.drawable.image3, R.drawable.image4};
     private FirebaseAuth auth;
     CardView responsesCV;
+    TextView reminderTV;
+    int badgeitems=0;
 
-
-    DatabaseReference UserRef;
+    int IncomingDataLength=0;
+    TextView textCartItemCount;
+    public int mCartItemCount;
+    DatabaseReference UserRef, BookingRef;
     private String userPhoneNo = "";
+    String userId;
 
 
     @Override
@@ -45,11 +54,19 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         auth=FirebaseAuth.getInstance();
+        userId=auth.getCurrentUser().getUid();
         UserRef = FirebaseDatabase.getInstance().getReference("Users");
+        BookingRef = FirebaseDatabase.getInstance().getReference("Booking");
         TrackDonationTV=findViewById(R.id.TrackDonationTV);
         responsesCV=findViewById(R.id.responsesCV);
+        reminderTV=findViewById(R.id.reminderTV);
+        reminderTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getBaseContext(), ReminderActivity.class));
+            }
+        });
         getuserPhoneNo();
-        getNotification();
         responsesCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,6 +112,19 @@ public class DashboardActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.logout_menu, menu);
+        final MenuItem menuItem = menu.findItem(R.id.optCart);
+
+        View actionView = MenuItemCompat.getActionView(menuItem);
+        textCartItemCount = actionView.findViewById(R.id.cart_badge);
+        getNotification();
+
+
+        actionView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onOptionsItemSelected(menuItem);
+            }
+        });
         return true;
     }
 
@@ -106,7 +136,7 @@ public class DashboardActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.logout_item) {
+        if (id == R.id.action_logout) {
             auth.signOut();
             startActivity(new Intent(DashboardActivity.this, MainActivity.class));
             finish();
@@ -134,23 +164,20 @@ public class DashboardActivity extends AppCompatActivity {
         return  userPhoneNo;
     }
 
-    private String getNotification() {
-        UserRef.orderByChild("donorid").equalTo(getuserPhoneNo()).addValueEventListener(new ValueEventListener() {
+    private int getNotification() {
+        BookingRef.orderByChild("seekerid").equalTo(userId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
-                    for (DataSnapshot child: dataSnapshot.getChildren()){
-                        if (child.child("donationdate").equals(currentDate)){
-                            NotificationCompat.Builder builder = new NotificationCompat.Builder(DashboardActivity.this)
-                                    .setSmallIcon(R.drawable.ic_icon)
-                                    .setContentTitle("textTitle")
-                                    .setContentText("textContent")
-                                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-                            builder.build();
+                    for (DataSnapshot mychild: dataSnapshot.getChildren()){
+                        BookingModel model=mychild.getValue(BookingModel.class);
+                        if (model.getDonationdate().equals(currentDate)){
+                            badgeitems=badgeitems+1;
+                            Toast.makeText(DashboardActivity.this, ""+badgeitems, Toast.LENGTH_SHORT).show();
                         }
                     }
-//                    userPhoneNo = dataSnapshot.child("phoneno").getValue().toString();
+                    setupBadge(badgeitems);
                 }
             }
 
@@ -160,7 +187,22 @@ public class DashboardActivity extends AppCompatActivity {
             }
 
         });
-        return  userPhoneNo;
+        return  badgeitems;
+    }
+    public void setupBadge(int mCartItemCount) {
+
+        if (textCartItemCount != null) {
+            if (mCartItemCount == 0) {
+                if (textCartItemCount.getVisibility() != View.GONE) {
+                    textCartItemCount.setVisibility(View.GONE);
+                }
+            } else {
+                textCartItemCount.setText(String.valueOf(Math.min(mCartItemCount, 99)));
+                if (textCartItemCount.getVisibility() != View.VISIBLE) {
+                    textCartItemCount.setVisibility(View.VISIBLE);
+                }
+            }
+        }
     }
 
 }

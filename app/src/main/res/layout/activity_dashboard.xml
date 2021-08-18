@@ -5,7 +5,6 @@
     android:orientation="vertical"
     android:weightSum="1">
 
-
     <ViewFlipper
         android:id="@+id/simpleViewFlipper"
         android:layout_width="match_parent"
@@ -141,13 +140,14 @@
                     android:padding="5dp">
 
                     <TextView
+                        android:id="@+id/reminderTV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:drawableLeft="@drawable/ic_check"
                         android:drawablePadding="10dp"
                         android:gravity="center"
-                        android:text="Send A Notification To Company"
+                        android:text="Reminder"
                         android:textSize="16sp">
 
                     </TextView>

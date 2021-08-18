@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".AdminActivities.AdminHomeActivity"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/optCart"
+        android:title="Cart"
+        app:actionLayout="@layout/custom_action_item_layout"
+        android:icon="@drawable/ic_shopping_cart"
+        app:showAsAction="always"/>
     <item
-        android:id="@+id/logout_item"
-        android:title="Logout" />
-
+        android:id="@+id/action_logout"
+        android:orderInCategory="100"
+        android:title="Logout"
+        app:showAsAction="never" />
 </menu>

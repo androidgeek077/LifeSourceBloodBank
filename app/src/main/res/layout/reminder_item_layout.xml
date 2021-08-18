@@ -1,0 +1,42 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal">
+    <androidx.cardview.widget.CardView
+        app:cardCornerRadius="2dp"
+        app:cardElevation="5dp"
+        android:layout_margin="5dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        app:cardBackgroundColor="#EDE9E9" >
+
+        <TextView
+            android:id="@+id/remianingDaysTV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="sans-serif-black"
+            android:gravity="center"
+            android:text="2 Days Left" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/donationDate"
+
+        android:gravity="center"
+        android:textStyle="bold"
+        android:text="You Have a Donation Due Tomorrow"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#514D4D" />
+</LinearLayout>
