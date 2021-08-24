@@ -93,28 +93,11 @@
             android:entries="@array/blood_type" />
 
 
-        <TextView
-            android:id="@+id/forgetPasswordTV"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:gravity="right"
-            android:text="Forget Password ?"
-            android:visibility="gone" />
-
-
         <Button
-            android:id="@+id/signupBtn"
-            style="@style/TextAppearance.AppCompat.Button"
+            android:text="Signup"
+            android:id="@+id/mySignupBtn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/green_color_round"
-            android:text="@string/signup"
-            android:textColor="#fff"
-            android:textSize="20sp" />
+            android:layout_height="wrap_content"/>
 
         <ProgressBar
             android:id="@+id/mProgressBar"

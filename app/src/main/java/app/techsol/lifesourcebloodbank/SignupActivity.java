@@ -34,8 +34,10 @@ import app.techsol.lifesourcebloodbank.Models.UserModel;
 public class SignupActivity extends AppCompatActivity implements LocationListener {
 
     EditText NameET, EmailET, PasswordET, PhoneET;
-    String nameStr, emailStr, passwprdStr, phoneStr, userLat, userLong, bloodTypeStr;
+    String nameStr, emailStr, passwprdStr, phoneStr, bloodTypeStr;
     Spinner bloodTypeSpnr;
+    String userLong="72.69151062402631";
+    String userLat= "32.07606572854463";
     Button signupBtn;
     TextView gotoLoginTV;
     LinearLayout view;
@@ -59,22 +61,7 @@ public class SignupActivity extends AppCompatActivity implements LocationListene
         PasswordET = findViewById(R.id.PasswordET);
         PhoneET = findViewById(R.id.PhoneET);
         bloodTypeSpnr = findViewById(R.id.bloodTypeSpnr);
-        signupBtn = findViewById(R.id.signupBtn);
-
-        locationManager = (LocationManager) getSystemService(getApplicationContext().LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+        signupBtn = findViewById(R.id.mySignupBtn);
         signupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,14 +121,37 @@ public class SignupActivity extends AppCompatActivity implements LocationListene
             }
         });
 
+//        signupBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                getStrings();
+//
+//                Toast.makeText(SignupActivity.this, "This is clik", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+
+        locationManager = (LocationManager) getSystemService(getApplicationContext().LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+
     }
 
     void getStrings() {
-        nameStr=NameET.getText().toString();
-        emailStr=EmailET.getText().toString();
-        passwprdStr=PasswordET.getText().toString();
-        phoneStr=PhoneET.getText().toString();
-        bloodTypeStr=bloodTypeSpnr.getSelectedItem().toString();
+        nameStr = NameET.getText().toString();
+        emailStr = EmailET.getText().toString();
+        passwprdStr = PasswordET.getText().toString();
+        phoneStr = PhoneET.getText().toString();
+        bloodTypeStr = bloodTypeSpnr.getSelectedItem().toString();
     }
 
     @Override
